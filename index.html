@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Education UI</title>
+
+<style>
+/* =====================================
+   1. GLOBAL THEME
+===================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080b16;
+  --surface: #111827;
+  --border: rgba(255,255,255,.10);
+  --text: #f8fafc;
+  --muted: #a6b0c2;
+  --gold: #e8c778;
+  --green: #34d399;
+  --purple: #c4a1ff;
+  --blue: #7dd3fc;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(ellipse at top left, #1c1730 0%, transparent 38%),
+    radial-gradient(ellipse at bottom right, #102c2c 0%, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 35px 18px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.page-header {
+  text-align: center;
+  margin: 35px 0 45px;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 9px 15px;
+  border: 1px solid rgba(232,199,120,.3);
+  border-radius: 50px;
+  background: rgba(232,199,120,.08);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: clamp(32px, 6vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+  margin-bottom: 17px;
+}
+
+.page-header h1 span {
+  background: linear-gradient(90deg, #f9e7a8, #d5a94d, #fff1bd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-header p {
+  max-width: 640px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* =====================================
+   2. SECTION HEADINGS
+===================================== */
+.section {
+  margin-bottom: 45px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  font-size: 22px;
+  margin-bottom: 7px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.section-number {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+/* =====================================
+   3. UNIVERSAL DIV CARDS
+===================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.div-card {
+  --accent: #e8c778;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 25px;
+  border: 1px solid var(--border);
+  border-radius: 21px;
+  background: linear-gradient(145deg, #151d2e, #0d1320);
+  transition: transform .3s ease, border-color .3s ease,
+              box-shadow .3s ease;
+}
+
+.div-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 190px;
+  height: 190px;
+  top: -100px;
+  right: -90px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: .10;
+  filter: blur(35px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.div-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: .55;
+}
+
+.div-card:hover {
+  transform: translateY(-7px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 18px 45px rgba(0,0,0,.25);
+}
+
+.div-card:hover::before {
+  opacity: .22;
+  transform: scale(1.25);
+}
+
+/* =====================================
+   4. LUXURY GOLD DIVS
+===================================== */
+.luxury {
+  --accent: #e8c778;
+}
+
+.luxury .icon-box {
+  color: #ffe6a3;
+  background: linear-gradient(135deg, #514020, #2b251b);
+  border-color: rgba(232,199,120,.35);
+}
+
+.luxury .card-tag {
+  color: #f4d993;
+  background: rgba(232,199,120,.10);
+  border-color: rgba(232,199,120,.22);
+}
+
+.luxury .card-link {
+  color: var(--gold);
+}
+
+/* =====================================
+   5. EDUCATION BLUE DIVS
+===================================== */
+.education {
+  --accent: #60a5fa;
+  background:
+    radial-gradient(circle at top right, rgba(59,130,246,.13), transparent 50%),
+    linear-gradient(145deg, #101d33, #0d1423);
+}
+
+.education .icon-box {
+  color: #bfdbfe;
+  background: linear-gradient(135deg, #173e70, #172944);
+  border-color: rgba(96,165,250,.35);
+}
+
+.education .card-tag {
+  color: #93c5fd;
+  background: rgba(59,130,246,.12);
+  border-color: rgba(96,165,250,.25);
+}
+
+.education .card-link {
+  color: #93c5fd;
+}
+
+/* =====================================
+   6. EMERALD DIVS
+===================================== */
+.emerald {
+  --accent: #34d399;
+  background:
+    radial-gradient(circle at top right, rgba(16,185,129,.12), transparent 50%),
+    linear-gradient(145deg, #102720, #0d171a);
+}
+
+.emerald .icon-box {
+  color: #a7f3d0;
+  background: linear-gradient(135deg, #14533e, #123328);
+  border-color: rgba(52,211,153,.3);
+}
+
+.emerald .card-tag {
+  color: #6ee7b7;
+  background: rgba(52,211,153,.1);
+  border-color: rgba(52,211,153,.22);
+}
+
+.emerald .card-link {
+  color: #6ee7b7;
+}
+
+/* =====================================
+   7. ROYAL PURPLE DIVS
+===================================== */
+.royal {
+  --accent: #c4a1ff;
+  background:
+    radial-gradient(circle at top right, rgba(168,85,247,.15), transparent 50%),
+    linear-gradient(145deg, #241733, #151121);
+}
+
+.royal .icon-box {
+  color: #e9d5ff;
+  background: linear-gradient(135deg, #512c77, #302044);
+  border-color: rgba(196,161,255,.3);
+}
+
+.royal .card-tag {
+  color: #d8b4fe;
+  background: rgba(168,85,247,.12);
+  border-color: rgba(196,161,255,.23);
+}
+
+.royal .card-link {
+  color: #d8b4fe;
+}
+
+/* =====================================
+   8. ICON & CARD CONTENT
+===================================== */
+.card-top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.icon-box {
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  font-size: 26px;
+}
+
+.card-tag {
+  display: inline-block;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .6px;
+}
+
+.div-card h3 {
+  font-size: 19px;
+  margin-bottom: 11px;
+  letter-spacing: -.3px;
+}
+
+.div-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.card-divider {
+  height: 1px;
+  background: rgba(255,255,255,.09);
+  margin: 22px 0 16px;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-caption {
+  color: #8190a7;
+  font-size: 11px;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  transition: gap .2s ease;
+}
+
+.card-link:hover {
+  gap: 12px;
+}
+
+/* =====================================
+   9. PREMIUM GRADIENT FEATURE DIV
+===================================== */
+.feature-banner {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 5vw, 50px);
+  border-radius: 25px;
+  border: 1px solid rgba(232,199,120,.28);
+  background:
+    radial-gradient(circle at 90% 20%, rgba(232,199,120,.18), transparent 35%),
+    linear-gradient(115deg, #211b30, #101c2b 55%, #123029);
+}
+
+.feature-banner h2 {
+  max-width: 680px;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.feature-banner h2 span {
+  color: var(--gold);
+}
+
+.feature-banner p {
+  max-width: 580px;
+  color: #b5bfd0;
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 25px;
+}
+
+.gold-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border-radius: 11px;
+  border: 0;
+  background: linear-gradient(135deg, #f7e5a4, #d2a447);
+  color: #241a09;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(210,164,71,.13);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.gold-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(210,164,71,.25);
+}
+
+/* =====================================
+   10. COLOR THEME SWITCHER
+===================================== */
+.theme-panel {
+  margin-top: 35px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(17,24,39,.75);
+}
+
+.theme-panel h3 {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.theme-panel p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.theme-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid #344054;
+  background: #151f30;
+  color: #e2e8f0;
+  cursor: pointer;
+  font-size: 12px;
+  transition: .2s;
+}
+
+.theme-btn:hover,
+.theme-btn.active {
+  border-color: var(--btn-color);
+  color: var(--btn-color);
+  background: rgba(255,255,255,.04);
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--btn-color);
+  box-shadow: 0 0 10px var(--btn-color);
+}
+
+.notice {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #6ee7b7;
+  display: none;
+}
+
+.notice.show {
+  display: block;
+}
+
+/* =====================================
+   11. RESPONSIVE DESIGN
+===================================== */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px 13px;
+  }
+
+  .page-header {
+    margin: 25px 0 35px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .div-card {
+    padding: 22px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  .feature-banner {
+    padding: 27px 21px;
+    border-radius: 19px;
+  }
+
+  .theme-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .theme-btn {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <span class="eyebrow">✦ PREMIUM DESIGN COLLECTION</span>
+
+    <h1>
+      Luxury Meets <span>Div</span>
+    </h1>
+
+    <p>
+      Professional div components with rich colors, elegant gradients,
+      sophisticated borders and modern interactive effects.
+    </p>
+  </header>
+
+  <!-- SECTION 1: LUXURY -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Luxury Collection</h2>
+        <p>Elegant gold, premium surfaces and refined details.</p>
+      </div>
+      <span class="section-number">01 / LUXURY</span>
+    </div>
+
+    <div class="grid">
+
+      <article class="div-card luxury">
+        <div class="card-top">
+          <div class="icon-box">♛</div>
+          <span class="card-tag">EXCLUSIVE</span>
+        </div>
+
+        <h3>Premium Membership</h3>
+        <p>
+          An elegant experience designed for people who appreciate
+          quality, sophistication and attention to detail.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Luxury Collection</span>
+          <a href="#premium" class="card-link">Explore ↗</a>
+        </div>
+      </article>
+
+      <article class="div-card luxury">
+        <div class="card-top">
+          <div class="icon-box">✧</div>
+          <span class="card-tag">SIGNATURE</span>
+        </div>
+
+        <h3>Signature Experience</h3>
+        <p>
+          Refined layouts, subtle golden highlights and timeless
+          design details for premium digital brands.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Special Edition</span>
+          <a href="#premium" class="card-link">Discover ↗</a>
+        </div>
+      </article>
+
+      <article class="div-card luxury">
+        <div class="card-top">
+          <div class="icon-box">◇</div>
+          <span class="card-tag">ELITE</span>
+        </div>
+
+        <h3>Elite Dashboard</h3>
+        <p>
+          Bring elegance to your interface with balanced spacing,
+          luxurious accents and polished components.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Professional UI</span>
+          <a href="#premium" class="card-link">View Details ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: EDUCATION -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Education Collection</h2>
+        <p>Designed for online academies, courses and student dashboards.</p>
+      </div>
+      <span class="section-number">02 / EDUCATION</span>
+    </div>
+
+    <div class="grid">
+
+      <article class="div-card education">
+        <div class="card-top">
+          <div class="icon-box">🎓</div>
+          <span class="card-tag">ACADEMY</span>
+        </div>
+
+        <h3>Learning Academy</h3>
+        <p>
+          Create an inspiring learning space with clean typography,
+          focused content and professional academic styling.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Learning Platform</span>
+          <a href="#courses" class="card-link">View Courses ↗</a>
+        </div>
+      </article>
+
+      <article class="div-card education">
+        <div class="card-top">
+          <div class="icon-box">📚</div>
+          <span class="card-tag">KNOWLEDGE</span>
+        </div>
+
+        <h3>Course Library</h3>
+        <p>
+          Organize learning resources and educational content
+          in a structured, accessible interface.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Digital Library</span>
+          <a href="#courses" class="card-link">Explore ↗</a>
+        </div>
+      </article>
+
+      <article class="div-card education">
+        <div class="card-top">
+          <div class="icon-box">🏆</div>
+          <span class="card-tag">ACHIEVEMENT</span>
+        </div>
+
+        <h3>Student Success</h3>
+        <p>
+          Highlight progress, celebrate milestones and encourage
+          students to continue developing their skills.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Progress Center</span>
+          <a href="#courses" class="card-link">Learn More ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: PROFESSIONAL -->
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Professional Collection</h2>
+        <p>Emerald and royal purple styles for premium business products.</p>
+      </div>
+      <span class="section-number">03 / PROFESSIONAL</span>
+    </div>
+
+    <div class="grid">
+
+      <article class="div-card emerald">
+        <div class="card-top">
+          <div class="icon-box">↗</div>
+          <span class="card-tag">GROWTH</span>
+        </div>
+
+        <h3>Business Growth</h3>
+        <p>
+          A confident green design for analytics, business metrics,
+          productivity tools and success indicators.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Business Suite</span>
+          <a href="#business" class="card-link">Explore ↗</a>
+        </div>
+      </article>
+
+      <article class="div-card royal">
+        <div class="card-top">
+          <div class="icon-box">✦</div>
+          <span class="card-tag">INNOVATION</span>
+        </div>
+
+        <h3>Creative Studio</h3>
+        <p>
+          Royal purple surfaces bring depth and creativity to
+          design tools, portfolios and digital products.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Creative Tools</span>
+          <a href="#business" class="card-link">Discover ↗</a>
+        </div>
+      </article>
+
+      <article class="div-card education">
+        <div class="card-top">
+          <div class="icon-box">◈</div>
+          <span class="card-tag">STRATEGY</span>
+        </div>
+
+        <h3>Smart Solutions</h3>
+        <p>
+          A professional blue palette for consulting services,
+          strategic planning and technology platforms.
+        </p>
+
+        <div class="card-divider"></div>
+
+        <div class="card-bottom">
+          <span class="card-caption">Digital Solutions</span>
+          <a href="#business" class="card-link">Get Started ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- LUXURY FEATURE BANNER -->
+  <section class="feature-banner" id="premium">
+    <span class="eyebrow">✦ YOUR NEXT LEVEL</span>
+
+    <h2>
+      Build Something <span>Extraordinary.</span>
+    </h2>
+
+    <p>
+      Combine luxury colors, educational clarity and professional
+      layouts to create a memorable digital experience.
+    </p>
+
+    <button class="gold-button" id="exploreBtn" type="button">
+      Explore Collection <span aria-hidden="true">→</span>
+    </button>
+  </section>
+
+  <!-- INTERACTIVE COLOR SWITCHER -->
+  <section class="theme-panel">
+    <h3>Choose Your Color Style</h3>
+    <p>
+      Select a palette to update the main accent color of the page.
+      Your existing cards keep their own individual color themes.
+    </p>
+
+    <div class="theme-options">
+      <button class="theme-btn active" data-color="#e8c778"
+        style="--btn-color:#e8c778" type="button">
+        <span class="swatch"></span> Luxury Gold
+      </button>
+
+      <button class="theme-btn" data-color="#34d399"
+        style="--btn-color:#34d399" type="button">
+        <span class="swatch"></span> Emerald
+      </button>
+
+      <button class="theme-btn" data-color="#60a5fa"
+        style="--btn-color:#60a5fa" type="button">
+        <span class="swatch"></span> Royal Blue
+      </button>
+
+      <button class="theme-btn" data-color="#c4a1ff"
+        style="--btn-color:#c4a1ff" type="button">
+        <span class="swatch"></span> Royal Purple
+      </button>
+
+      <button class="theme-btn" data-color="#fb923c"
+        style="--btn-color:#fb923c" type="button">
+        <span class="swatch"></span> Amber
+      </button>
+
+      <button class="theme-btn" data-color="#f472b6"
+        style="--btn-color:#f472b6" type="button">
+        <span class="swatch"></span> Rose Pink
+      </button>
+    </div>
+
+    <p class="notice" id="themeNotice" role="status" aria-live="polite">
+      Theme accent updated successfully.
+    </p>
+  </section>
+
+  <footer style="text-align:center;color:#718096;font-size:12px;margin-top:30px">
+    Premium UI Collection · HTML · CSS · JavaScript
+  </footer>
+
+</div>
+
+<script>
+// ===================================
+// COLOR THEME SWITCHER
+// ===================================
+const themeButtons = document.querySelectorAll(".theme-btn");
+const themeNotice = document.getElementById("themeNotice");
+
+themeButtons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    const selectedColor = button.dataset.color;
+
+    // Update the main theme accent.
+    document.documentElement.style.setProperty(
+      "--gold",
+      selectedColor
+    );
+
+    // Update the selected button state.
+    themeButtons.forEach(function(item) {
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    // Show confirmation.
+    themeNotice.classList.add("show");
+    themeNotice.style.color = selectedColor;
+    themeNotice.textContent =
+      button.textContent.trim() + " selected successfully.";
+  });
+});
+
+// ===================================
+// FEATURE BUTTON
+// ===================================
+document.getElementById("exploreBtn").addEventListener(
+  "click",
+  function() {
+    document.querySelector(".section").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+);
+</script>
+
+</body>
+</html>
